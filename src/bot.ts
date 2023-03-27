@@ -196,7 +196,7 @@ export class ChatGPTBot {
     text: string
   ): boolean {
     return (
-      talker.self() ||
+      // talker.self() ||
       // TODO: add doc support
       !(messageType == MessageType.Text || messageType == MessageType.Audio) ||
       talker.name() === "微信团队" ||
@@ -255,6 +255,22 @@ export class ChatGPTBot {
     } else {
       const topic = await room.topic()
       console.log(`🚪 Room: ${topic} 🤵 Contact: ${talker.name()} 💬 Text: ${rawText}`)
+      if(DBUtils.isUserExist(talker.name())) {
+        console.log(`🤵 Contact: ${talker.name()} 黑魔法开着`);
+      }else{
+        console.log(`🤵 Contact: ${talker.name()} 黑魔法关着`);
+      }
+      if (rawText === '果冻黑魔法开') {
+        DBUtils.addUser(talker.name());
+        console.log(`🤵 Contact: ${talker.name()} 打开了黑魔法`);
+        await this.trySay(talker, '恭喜你，打开了黑魔法，现在你可以开始使用魔法了');
+        return;
+      }else if (rawText === '果冻黑魔法关') {
+        DBUtils.deleteUser(talker.name());
+        console.log(`🤵 Contact: ${talker.name()} 关闭了黑魔法`);
+        await this.trySay(talker, '果冻黑魔法消失咯~');
+        return;
+      }
     }
     if (this.isNonsense(talker, messageType, rawText)) {
       return;
