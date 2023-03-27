@@ -233,6 +233,7 @@ export class ChatGPTBot {
     const room = message.room();
     const messageType = message.type();
     const privateChat = !room;
+    const magicOn = DBUtils.isUserExist(talker.name())
     if (privateChat) {
       console.log(`🤵 Contact: ${talker.name()} 💬 Text: ${rawText}`)
       if(DBUtils.isUserExist(talker.name())) {
@@ -296,6 +297,13 @@ export class ChatGPTBot {
         message.say(fileBox)
       }
       return;
+    }
+    // 如果黑魔法已经打开，则开始
+    if (magicOn) {
+      if (privateChat) {
+        const text = this.cleanMessage(rawText, privateChat);
+        return await this.onPrivateMessage(talker, text);
+      }
     }
     if (this.triggerGPTMessage(rawText, privateChat)) {
       const text = this.cleanMessage(rawText, privateChat);
