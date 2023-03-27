@@ -235,6 +235,17 @@ export class ChatGPTBot {
     const privateChat = !room;
     if (privateChat) {
       console.log(`🤵 Contact: ${talker.name()} 💬 Text: ${rawText}`)
+      if (rawText === '果冻黑魔法开') {
+        DBUtils.addUser(talker.name());
+        console.log(`🤵 Contact: ${talker.name()} 打开了黑魔法`);
+        await this.trySay(talker, '恭喜你，打开了黑魔法，现在你可以开始使用魔法了');
+        return;
+      }else if (rawText === '果冻黑魔法关') {
+        DBUtils.deleteUser(talker.name());
+        console.log(`🤵 Contact: ${talker.name()} 关闭了黑魔法`);
+        await this.trySay(talker, '果冻黑魔法消失咯~');
+        return;
+      }
     } else {
       const topic = await room.topic()
       console.log(`🚪 Room: ${topic} 🤵 Contact: ${talker.name()} 💬 Text: ${rawText}`)

@@ -32,6 +32,17 @@ class DB {
     return newUser;
   }
 
+  public deleteUser(username: string): void {
+    const userIndex = DB.data.findIndex((user) => user.username === username);
+    if (userIndex !== -1) {
+      DB.data.splice(userIndex, 1);
+    }
+  }
+
+  public isUserExist(username: string): boolean {
+    return DB.data.some((user) => user.username === username);
+  }  
+
   /**
    * 根据用户名获取用户, 如果用户不存在则添加用户
    * @param username
