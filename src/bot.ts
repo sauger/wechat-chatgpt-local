@@ -235,6 +235,11 @@ export class ChatGPTBot {
     const privateChat = !room;
     if (privateChat) {
       console.log(`🤵 Contact: ${talker.name()} 💬 Text: ${rawText}`)
+      if(DBUtils.isUserExist(talker.name())) {
+        console.log(`🤵 Contact: ${talker.name()} 黑魔法开着`);
+      }else{
+        console.log(`🤵 Contact: ${talker.name()} 黑魔法关着`);
+      }
       if (rawText === '果冻黑魔法开') {
         DBUtils.addUser(talker.name());
         console.log(`🤵 Contact: ${talker.name()} 打开了黑魔法`);
