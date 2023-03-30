@@ -268,7 +268,7 @@ export class ChatGPTBot {
       }else if (rawText === '果冻黑魔法关') {
         DBUtils.deleteUser(talker.name());
         console.log(`🤵 Contact: ${talker.name()} 关闭了黑魔法`);
-        await this.trySay(talker, '果冻黑魔法消失咯~');
+        await this.trySay(room, '果冻黑魔法消失咯~');
         return;
       }
     }
