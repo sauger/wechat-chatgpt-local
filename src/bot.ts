@@ -263,7 +263,7 @@ export class ChatGPTBot {
       if (rawText === '果冻黑魔法开') {
         DBUtils.addUser(talker.name());
         console.log(`🤵 Contact: ${talker.name()} 打开了黑魔法`);
-        await this.trySay(talker, '恭喜你，打开了黑魔法，现在你可以开始使用魔法了');
+        await this.trySay(room, '恭喜你，打开了黑魔法，现在你可以开始使用魔法了');
         return;
       }else if (rawText === '果冻黑魔法关') {
         DBUtils.deleteUser(talker.name());
